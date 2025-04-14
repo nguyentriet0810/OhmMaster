@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=ALERT Pin=STM1-25
+Removed Pin From Net: NetName=R_6 Pin=STM1-34
+Added Pin To Net: NetName=R_6 Pin=STM1-25
+Added Pin To Net: NetName=ALERT Pin=STM1-34

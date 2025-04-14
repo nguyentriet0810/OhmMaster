@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=0V Pin=C9-
+Added Pin To Net: NetName=ALERT Pin=STM1-25
+Added Pin To Net: NetName=ALERT Pin=U2-5
+Added Net: Name=ALERT

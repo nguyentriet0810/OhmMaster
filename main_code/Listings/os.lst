@@ -1,0 +1,131 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;khai bao chung
+    2 00000000                 AREA             |.TEXT|,CODE,READONLY,ALIGN=2
+    3 00000000         ;tap lenh thumb
+    4 00000000                 THUMB
+    5 00000000         ;stack kieu 8 byte
+    6 00000000                 PRESERVE8
+    7 00000000         ; bien currentPt da duoc khai bao o dau do trong chuong 
+                       trinh
+    8 00000000                 EXTERN           currentPt
+    9 00000000         ;xuat ham ra ben ngoai de su dung trong chuong trinh c
+   10 00000000                 EXPORT           osSchedulerLaunch
+   11 00000000                 EXPORT           PendSV_Handler
+   12 00000000         ;ham nay da duoc khai bao dau do trong chuong trinh
+   13 00000000                 IMPORT           osSchedulerRoundRobin
+   14 00000000         
+   15 00000000         ;chuong trinh con khoi chay task dau tien trong chuong t
+                       rinh
+   16 00000000         osSchedulerLaunch
+   17 00000000 4810            LDR              R0, =currentPt
+   18 00000002 6802            LDR              R2, [R0]
+   19 00000004         
+   20 00000004 F8D2 D000       LDR              SP, [R2]
+   21 00000008 E8BD 0FF0       POP              {R4-R11}
+   22 0000000C BC0F            POP              {R0-R3}
+   23 0000000E F85D CB04       POP              {R12}
+   24 00000012 B001            ADD              SP, SP, #4
+   25 00000014 F85D EB04       POP              {LR}
+   26 00000018 B001            ADD              SP, SP, #4
+   27 0000001A         
+   28 0000001A B662            CPSIE            I
+   29 0000001C 4770            BX               LR
+   30 0000001E         
+   31 0000001E         ;chuong trinh con thuc hien sau luu, khoi phuc va chuyen
+                        task
+   32 0000001E         PendSV_Handler
+   33 0000001E B672            CPSID            I
+   34 00000020 E92D 0FF0       PUSH             {R4-R11}
+   35 00000024 4807            LDR              R0, =currentPt
+   36 00000026 6801            LDR              R1, [R0]
+   37 00000028         
+   38 00000028 F8C1 D000       STR              SP, [R1]
+   39 0000002C         
+   40 0000002C B501            PUSH             {R0, LR}
+   41 0000002E F7FF FFFE       BL               osSchedulerRoundRobin
+   42 00000032 E8BD 4001       POP              {R0, LR}
+   43 00000036 6801            LDR              R1, [R0]
+   44 00000038         
+   45 00000038 F8D1 D000       LDR              SP, [R1]
+   46 0000003C E8BD 0FF0       POP              {R4-R11}
+   47 00000040 B662            CPSIE            I
+   48 00000042 4770            BX               LR
+   49 00000044         
+   50 00000044                 END
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\objects\os_1.d -o.\objects\os_1.o -I.\device -I.\lib_ads1115 -I.
+\lib_button -I.\lib_com -I.\lib_os -I.\lib_sdcard -I.\lib_tft -I.\lib_timer -I.
+\RTE\Device\STM32F103C8 -I.\RTE\_Target_1 -IC:\Users\23tri\AppData\Local\Arm\Pa
+cks\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Users\23tri\AppData\Local\Arm\Packs
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+\Keil\STM32F1xx_DFP\2.4.1\Device\Include -IC:\Users\23tri\AppData\Local\Arm\Pac
+ks\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc --predefine="__UVISION_
+VERSION SETA 531" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" 
+--predefine="_RTE_ SETA 1" --list=.\listings\os.lst lib_os\os.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.TEXT 00000000
+
+Symbol: .TEXT
+   Definitions
+      At line 2 in file lib_os\os.s
+   Uses
+      None
+Comment: .TEXT unused
+PendSV_Handler 0000001E
+
+Symbol: PendSV_Handler
+   Definitions
+      At line 32 in file lib_os\os.s
+   Uses
+      At line 11 in file lib_os\os.s
+Comment: PendSV_Handler used once
+osSchedulerLaunch 00000000
+
+Symbol: osSchedulerLaunch
+   Definitions
+      At line 16 in file lib_os\os.s
+   Uses
+      At line 10 in file lib_os\os.s
+Comment: osSchedulerLaunch used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+currentPt 00000000
+
+Symbol: currentPt
+   Definitions
+      At line 8 in file lib_os\os.s
+   Uses
+      At line 17 in file lib_os\os.s
+      At line 35 in file lib_os\os.s
+
+osSchedulerRoundRobin 00000000
+
+Symbol: osSchedulerRoundRobin
+   Definitions
+      At line 13 in file lib_os\os.s
+   Uses
+      At line 41 in file lib_os\os.s
+Comment: osSchedulerRoundRobin used once
+2 symbols
+340 symbols in table

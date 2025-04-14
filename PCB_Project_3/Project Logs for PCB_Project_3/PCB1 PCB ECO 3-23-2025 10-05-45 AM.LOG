@@ -1,0 +1,6 @@
+Added Component: Designator=LT1(PCBComponent_1)
+Added Pin To Net: NetName=+5 Pin=LT1-1
+Added Pin To Net: NetName=GND Pin=LT1-2
+Added Pin To Net: NetName=GND Pin=LT1-3
+Added Pin To Net: NetName=VCC Pin=LT1-4
+Added Member To Class: ClassName=Schematic Member=Component LT1 LT3045
