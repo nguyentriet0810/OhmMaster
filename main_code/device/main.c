@@ -1,12 +1,43 @@
+/*
+MIT License
+
+Copyright (c) 2025 Nguyen Hoang Minh Triet
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-----------------------------------------------------------------------
+Author : Nguyen Hoang Minh Triet 
+Email  : 23trietminh23@gmail.com  
+GitHub : https://github.com/nguyentriet0810  
+YouTube: https://www.youtube.com/@hoangtriet9999
+-----------------------------------------------------------------------
+*/
 #include "main.h"
 
 float res;
 uint8_t Sema_COM, Sema_SD, Sema_Value;
 uint8_t X_Coordinate = 15, Y_Coordinate = 160;
 Enable_Peripheral device;
+uint16_t axis_x, axis_y;
 
 void Draw_Display(void) {
 	while (1) {
+		axis_y++;
 		switch (device.Ranges) {
 			case 1:
 				ILI9341_DrawText( 35, 160, "RGS:20  R"  , GREEN, BLACK, 2);
@@ -24,7 +55,10 @@ void Draw_Display(void) {
 				ILI9341_DrawText( 35, 160, "RGS:200KR"  , GREEN, BLACK, 2);
 				break;
 			case 6:
-				ILI9341_DrawText( 35, 160, "RGS:1M  R"  , GREEN, BLACK, 2);
+				ILI9341_DrawText( 35, 160, "RGS:2M  R"  , GREEN, BLACK, 2);
+				break;
+			case 7:
+				ILI9341_DrawText( 35, 160, "RGS:20M R"  , GREEN, BLACK, 2);
 				break;
 			default:
 				ILI9341_DrawText( 35, 160, "RGS: AUTO"  , GREEN, BLACK, 2);
@@ -83,15 +117,16 @@ void Draw_Display(void) {
 
 void Check_Button(void) {
 	while (1) {
+		axis_x++;
 		if        ( GPIO_ReadInputDataBit(Button_Port, Button_Hold  ) == 0) {
 			if        ((X_Coordinate == 15) && (Y_Coordinate == 160)) {
 				device.Ranges++;
-				if (device.Ranges > 7) {
+				if (device.Ranges > 8) {
 					device.Ranges = 1;
 				}
 			} else if ((X_Coordinate == 15) && (Y_Coordinate == 190)) {
 				device.Frequency = device.Frequency + 1;
-				if (device.Frequency > 4 ) {
+				if (device.Frequency > 4) {
 					device.Frequency = 0;
 				}
 			}
@@ -169,10 +204,18 @@ void Read_Sensor(void) {
 				res = ADC_Range5_Resistance(device.Frequency, pga_2V);
 				break;
 			case 6:
-				res = ADC_Range6_Resistance(device.Frequency, pga_2V);
+				res = ADC_Range6_Resistance(device.Frequency);
 				break;
 			case 7:
-				value = ADC_Range6_Resistance(device.Frequency, pga_2V);
+				res = ADC_Range7_Resistance(device.Frequency);
+				break;
+			default:
+				value = ADC_Range7_Resistance(device.Frequency);
+				if (value > 2000000) {
+					res = value;
+					break;
+				} 
+				value = ADC_Range6_Resistance(device.Frequency);
 				if (value > 200000) {
 					res = value;
 					break;
@@ -201,6 +244,7 @@ void Read_Sensor(void) {
 				res = value;
 				break;
 		}
+		osSemaphore_Give(&Sema_Value);
 	}
 }
 
@@ -235,7 +279,6 @@ void SD_Save_Data(void) {
 }
 
 //test tounch
-uint16_t axis_x, axis_y;
 
 int main (void) {
 	
@@ -298,12 +341,12 @@ int main (void) {
 	osKernelAdd1Thread(*(SD_Save_Data));
 	osKernelLaunch(quanta);
 	
-	Touch_Init();
+	//Touch_Init();
 	
 	while (1){
-		if (Touch_IsPressed()) {
-      Touch_ReadPixelXY(&axis_x, &axis_y);
-    }
+//		if (Touch_IsPressed()) {
+//      Touch_ReadPixelXY(&axis_x, &axis_y);
+//    }
 	}
 }
 
@@ -369,7 +412,11 @@ void tach_4_chu_so_dau(float so, uint8_t out[4]) {
 }
 void Display_Init(Enable_Peripheral *dev, float val,  uint8_t out[4]) {
 	uint8_t counter = 0;
-	if ((val >= 1000000) && (val < 2000000) ) {
+	if ((val >= 10000000) && (val <= 99999999)) {
+		ILI9341_DrawText(285,  10,        "MR"  , RED  , BLACK, 3);
+		counter = 2;
+	}
+	else if ((val >= 1000000) && (val <= 9999999)) {
 		ILI9341_DrawText(285,  10,        "MR"  , RED  , BLACK, 3);
 		counter = 1;
 	} else if ((val >= 100000)&&(val <= 999999)) {
@@ -377,7 +424,7 @@ void Display_Init(Enable_Peripheral *dev, float val,  uint8_t out[4]) {
 		counter = 3;
 	} else if ((val >= 10000)&&(val <= 99999)) {
 		ILI9341_DrawText(285,  10,        "KR"  , RED  , BLACK, 3);
-			counter = 2;
+		counter = 2;
 	} else if ((val >= 1000)&&(val <= 9999)) {
 		ILI9341_DrawText(285,  10,        "KR"  , RED  , BLACK, 3);
 		counter = 1;
@@ -404,15 +451,15 @@ void Display_Init(Enable_Peripheral *dev, float val,  uint8_t out[4]) {
 //	} else if ((dev->Ranges) == 1 && (val > 20)) { 
 //		counter = 0;
 //	} 
-	if (((dev->Ranges) >= 6 && (val > 910000)) || ((dev->Ranges) == 5 && (val > 200000)) || ((dev->Ranges) == 4 && (val > 20000)) \
+	if (((dev->Ranges) >= 7 && (val > 22000000)) ||((dev->Ranges) == 6 && (val > 2000000)) || ((dev->Ranges) == 5 && (val > 200000)) || ((dev->Ranges) == 4 && (val > 20000)) \
 			|| ((dev->Ranges) == 3 && (val > 2000)) || ((dev->Ranges) == 2 && (val > 200)) || ((dev->Ranges) == 1 && (val > 20))) {
 		counter = 0;
-	} else if (((dev->Ranges) == 6 && (val < 200000)) || ((dev->Ranges) == 5 && (val < 3000)) || ((dev->Ranges) == 4 && (val < 300)) \
+	} else if (((dev->Ranges) == 7 && (val < 2000000)) || ((dev->Ranges) == 6 && (val < 200000)) || ((dev->Ranges) == 5 && (val < 3000)) || ((dev->Ranges) == 4 && (val < 300)) \
 			|| ((dev->Ranges) == 3 && (val < 30)) || ((dev->Ranges) == 2 && (val < 3)) || ((dev->Ranges) == 1 && (val < 0.4))) {
 		counter = 4;
 	}
 	switch (counter) {
-		case 0: 
+		case 0: //0.L
 			draw7Segment(5  ,   5,     11, RED   );  // Ch? s? 1, màu d?
 			drawDot     (68 , 115,         BLACK );  // D?u ch?m, màu d?
 			draw7Segment(75 ,   5,      0, RED   );  // Ch? s? 2, màu d?
@@ -448,7 +495,7 @@ void Display_Init(Enable_Peripheral *dev, float val,  uint8_t out[4]) {
 			drawDot     (208, 115,         RED   );  // D?u ch?m, màu d?
 			draw7Segment(215,   5, out[3], RED   );  // Ch? s? 4, màu d?
 			break;
-		default:
+		default: //0.0
 			draw7Segment(5  ,   5,     11, RED   );  // Ch? s? 1, màu d?
 			drawDot     (68 , 115,         BLACK );  // D?u ch?m, màu d?
 			draw7Segment(75 ,   5,      0, RED   );  // Ch? s? 2, màu d?

@@ -33,7 +33,6 @@
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\main.o: .\lib_tft\spi1.h
 .\objects\main.o: .\lib_tft\fonts.h
-.\objects\main.o: .\lib_tft\touch.h
 .\objects\main.o: .\lib_button\button.h
 .\objects\main.o: .\lib_com\com.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
