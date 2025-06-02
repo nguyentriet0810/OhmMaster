@@ -46,7 +46,7 @@ YouTube: https://www.youtube.com/@hoangtriet9999
 #include "timer.h"
 #include "adc.h"
 #include "tft.h"
-//#include "touch.h"
+#include "touch.h"
 #include "button.h"
 #include "com.h"
 #include "sdcard.h"
@@ -64,6 +64,8 @@ typedef struct {
 	uint8_t Uart;
 	uint8_t SD;
 	uint8_t Graph;
+	uint8_t new_input;
+	uint8_t new_data;
 } Enable_Peripheral;
 
 void RCC_Clock_Init (void);
@@ -75,7 +77,8 @@ void Check_Button(void);
 void Read_Sensor(void);
 void Transmit_To_PC(void);
 void SD_Save_Data(void);
-	
+void Touch_Input(void);
+
 int main (void);
 
 #endif /*__MAIN__*/

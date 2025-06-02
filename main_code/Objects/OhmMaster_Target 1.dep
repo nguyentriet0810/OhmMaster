@@ -1,7 +1,7 @@
 Dependencies for Project 'OhmMaster', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::.\ARMCC
 F (.\lib_os\os.c)(0x6838F1F9)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\os.o --omf_browse .\objects\os.crf --depend .\objects\os.d)
-I (.\lib_os\os.h)(0x6838F1FE)
+I (.\lib_os\os.h)(0x683D61A6)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include\stm32f10x.h)(0x61AD876E)
 I (.\RTE\_Target_1\RTE_Components.h)(0x67E81277)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h)(0x5E8EDF32)
@@ -21,10 +21,10 @@ I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPer
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\stm32f10x_tim.h)(0x61AD876E)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\stm32f10x_usart.h)(0x61AD876E)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\misc.h)(0x61AD876E)
-F (.\lib_os\os.h)(0x6838F1FE)()
+F (.\lib_os\os.h)(0x683D61A6)()
 F (.\lib_os\os.s)(0x67EB3B67)(--cpu Cortex-M3 -g --apcs=interwork -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc--pd "__UVISION_VERSION SETA 531" --pd "_RTE_ SETA 1" --pd "STM32F10X_MD SETA 1" --pd "_RTE_ SETA 1"--list .\listings\os.lst --xref -o .\objects\os_1.o --depend .\objects\os_1.d)
-F (.\device\main.c)(0x6838F208)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (device\main.h)(0x6838F20E)
+F (.\device\main.c)(0x683D6772)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (device\main.h)(0x683D58C0)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC7840C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC7840C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC7840C)
@@ -49,7 +49,7 @@ I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPer
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\stm32f10x_tim.h)(0x61AD876E)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\stm32f10x_usart.h)(0x61AD876E)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\misc.h)(0x61AD876E)
-I (.\lib_os\os.h)(0x6838F1FE)
+I (.\lib_os\os.h)(0x683D61A6)
 I (.\lib_timer\timer.h)(0x6838F219)
 I (.\lib_ads1115\adc.h)(0x6838F228)
 I (.\lib_ads1115\iic.h)(0x6838F235)
@@ -57,12 +57,13 @@ I (.\lib_tft\tft.h)(0x6838F251)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5EC78406)
 I (.\lib_tft\spi1.h)(0x6838F242)
 I (.\lib_tft\fonts.h)(0x6838F26A)
+I (.\lib_tft\touch.h)(0x683D0C9A)
 I (.\lib_button\button.h)(0x6838F275)
 I (.\lib_com\com.h)(0x6838F27E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5EC7840C)
 I (.\lib_sdcard\sdcard.h)(0x6838F289)
-I (.\lib_sdcard\spi2.h)(0x6838F293)
-F (.\device\main.h)(0x6838F20E)()
+I (.\lib_sdcard\spi2.h)(0x68390069)
+F (.\device\main.h)(0x683D58C0)()
 F (.\lib_timer\timer.c)(0x6838F214)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
 I (lib_timer\timer.h)(0x6838F219)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include\stm32f10x.h)(0x61AD876E)
@@ -182,8 +183,8 @@ I (.\lib_timer\timer.h)(0x6838F219)
 I (lib_tft\fonts.h)(0x6838F26A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC7840C)
 F (.\lib_tft\tft.h)(0x6838F251)()
-F (.\lib_tft\touch.c)(0x6838F259)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\touch.o --omf_browse .\objects\touch.crf --depend .\objects\touch.d)
-I (lib_tft\touch.h)(0x6838F25F)
+F (.\lib_tft\touch.c)(0x683D23AB)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\touch.o --omf_browse .\objects\touch.crf --depend .\objects\touch.d)
+I (lib_tft\touch.h)(0x683D0C9A)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include\stm32f10x.h)(0x61AD876E)
 I (.\RTE\_Target_1\RTE_Components.h)(0x67E81277)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h)(0x5E8EDF32)
@@ -211,7 +212,7 @@ I (lib_tft\spi1.h)(0x6838F242)
 I (.\lib_timer\timer.h)(0x6838F219)
 I (lib_tft\fonts.h)(0x6838F26A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC7840C)
-F (.\lib_tft\touch.h)(0x6838F25F)()
+F (.\lib_tft\touch.h)(0x683D0C9A)()
 F (.\lib_tft\fonts.c)(0x6838F264)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\fonts.o --omf_browse .\objects\fonts.crf --depend .\objects\fonts.d)
 I (lib_tft\fonts.h)(0x6838F26A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC7840C)
@@ -270,7 +271,7 @@ F (.\lib_com\com.h)(0x6838F27E)()
 F (.\lib_sdcard\sdcard.c)(0x6838F285)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\sdcard.o --omf_browse .\objects\sdcard.crf --depend .\objects\sdcard.d)
 F (.\lib_sdcard\sdcard.h)(0x6838F289)()
 F (.\lib_sdcard\spi2.c)(0x6838F295)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\spi2.o --omf_browse .\objects\spi2.crf --depend .\objects\spi2.d)
-F (.\lib_sdcard\spi2.h)(0x6838F293)()
+F (.\lib_sdcard\spi2.h)(0x68390069)()
 F (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\src\misc.c)(0x61AD876E)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\device -I .\lib_ads1115 -I .\lib_button -I .\lib_com -I .\lib_os -I .\lib_sdcard -I .\lib_tft -I .\lib_timer-I.\RTE\Device\STM32F103C8-I.\RTE\_Target_1-IC:\Users\23tri\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\objects\misc.o --omf_browse .\objects\misc.crf --depend .\objects\misc.d)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\StdPeriph_Driver\inc\misc.h)(0x61AD876E)
 I (C:\Users\23tri\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include\stm32f10x.h)(0x61AD876E)

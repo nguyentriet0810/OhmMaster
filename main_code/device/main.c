@@ -30,94 +30,139 @@ YouTube: https://www.youtube.com/@hoangtriet9999
 #include "main.h"
 
 float res;
-uint8_t Sema_COM, Sema_SD, Sema_Value;
+uint8_t Sema_COM, Sema_SD, Sema_TFT, Sema_TOUCH;
 uint8_t X_Coordinate = 15, Y_Coordinate = 160;
 Enable_Peripheral device;
 uint16_t axis_x, axis_y;
 
 void Draw_Display(void) {
 	while (1) {
-		axis_y++;
-		switch (device.Ranges) {
-			case 1:
-				ILI9341_DrawText( 35, 160, "RGS:20  R"  , GREEN, BLACK, 2);
-				break;
-			case 2:
-				ILI9341_DrawText( 35, 160, "RGS:200 R"  , GREEN, BLACK, 2);
-				break;
-			case 3:
-				ILI9341_DrawText( 35, 160, "RGS:2K  R"  , GREEN, BLACK, 2);
-				break;
-			case 4:
-				ILI9341_DrawText( 35, 160, "RGS:20K R"  , GREEN, BLACK, 2);
-				break;
-			case 5:
-				ILI9341_DrawText( 35, 160, "RGS:200KR"  , GREEN, BLACK, 2);
-				break;
-			case 6:
-				ILI9341_DrawText( 35, 160, "RGS:2M  R"  , GREEN, BLACK, 2);
-				break;
-			case 7:
-				ILI9341_DrawText( 35, 160, "RGS:20M R"  , GREEN, BLACK, 2);
-				break;
-			default:
-				ILI9341_DrawText( 35, 160, "RGS: AUTO"  , GREEN, BLACK, 2);
-				break;
+		osCooperative_Wait(&Sema_TFT);
+		if(device.new_input == 1) {
+			switch (device.Ranges) {
+				case 1:
+					ILI9341_DrawText( 35, 160, "RGS:20  R"  , GREEN, BLACK, 2);
+					break;
+				case 2:
+					ILI9341_DrawText( 35, 160, "RGS:200 R"  , GREEN, BLACK, 2);
+					break;
+				case 3:
+					ILI9341_DrawText( 35, 160, "RGS:2K  R"  , GREEN, BLACK, 2);
+					break;
+				case 4:
+					ILI9341_DrawText( 35, 160, "RGS:20K R"  , GREEN, BLACK, 2);
+					break;
+				case 5:
+					ILI9341_DrawText( 35, 160, "RGS:200KR"  , GREEN, BLACK, 2);
+					break;
+				case 6:
+					ILI9341_DrawText( 35, 160, "RGS:2M  R"  , GREEN, BLACK, 2);
+					break;
+				case 7:
+					ILI9341_DrawText( 35, 160, "RGS:20M R"  , GREEN, BLACK, 2);
+					break;
+				default:
+					ILI9341_DrawText( 35, 160, "RGS: AUTO"  , GREEN, BLACK, 2);
+					break;
+			}
+			switch (device.Frequency) {
+				case 0:
+					ILI9341_DrawText( 35, 190, "SPS:8   Hz" , GREEN, BLACK, 2);
+					break;
+				case 1:
+					ILI9341_DrawText( 35, 190, "SPS:16  Hz" , GREEN, BLACK, 2);
+					break;
+				case 2:
+					ILI9341_DrawText( 35, 190, "SPS:32  Hz" , GREEN, BLACK, 2);
+					break;
+				case 3:
+					ILI9341_DrawText( 35, 190, "SPS:64  Hz" , GREEN, BLACK, 2);
+					break;
+				default:
+					ILI9341_DrawText( 35, 190, "SPS:128 Hz" , GREEN, BLACK, 2);
+					break;
+			}
+			switch (device.Uart) {
+				case 1:
+					ILI9341_DrawText(200, 160, "COM PORT"   , GREEN, BLACK, 2);
+					break;
+				default:
+					ILI9341_DrawText(200, 160, "COM PORT"   , RED  , BLACK, 2);
+					break;
+			}
+			switch (device.SD) {
+				case 1: 
+					ILI9341_DrawText(200, 190, "SD CARD"    , GREEN, BLACK, 2);
+					break;
+				default:
+					ILI9341_DrawText(200, 190, "SD CARD"    , RED  , BLACK, 2);
+					break;
+			}
+			switch (device.Graph) {
+				case 1:
+					ILI9341_DrawText(200, 220, "GRAPH "     , GREEN, BLACK, 2);
+					break;
+				default:
+					ILI9341_DrawText(200, 220, "GRAPH "     , RED  , BLACK, 2);
+					break;
+			}
+			ILI9341_DrawRectangle(15 ,160, 20,100,BLACK);
+			ILI9341_DrawRectangle(180,160, 20,100,BLACK);
+			ILI9341_DrawText(X_Coordinate,  Y_Coordinate, ">" , YELLOW, BLACK, 2);
+			device.new_input = 0;
 		}
-		switch (device.Frequency) {
-			case 0:
-				ILI9341_DrawText( 35, 190, "SPS:8   Hz" , GREEN, BLACK, 2);
-				break;
-			case 1:
-				ILI9341_DrawText( 35, 190, "SPS:16  Hz" , GREEN, BLACK, 2);
-				break;
-			case 2:
-				ILI9341_DrawText( 35, 190, "SPS:32  Hz" , GREEN, BLACK, 2);
-				break;
-			case 3:
-				ILI9341_DrawText( 35, 190, "SPS:64  Hz" , GREEN, BLACK, 2);
-				break;
-			default:
-				ILI9341_DrawText( 35, 190, "SPS:128 Hz" , GREEN, BLACK, 2);
-				break;
+		if (device.new_data == 1) {
+			uint8_t data[4];
+			tach_4_chu_so_dau(res, data);
+			Display_Init(&device,res,data);
+			device.new_data = 0;
 		}
-		switch (device.Uart) {
-			case 1:
-				ILI9341_DrawText(200, 160, "COM PORT"   , GREEN, BLACK, 2);
-				break;
-			default:
-				ILI9341_DrawText(200, 160, "COM PORT"   , RED  , BLACK, 2);
-				break;
-		}
-		switch (device.SD) {
-			case 1: 
-				ILI9341_DrawText(200, 190, "SD CARD"    , GREEN, BLACK, 2);
-				break;
-			default:
-				ILI9341_DrawText(200, 190, "SD CARD"    , RED  , BLACK, 2);
-				break;
-		}
-		switch (device.Graph) {
-			case 1:
-				ILI9341_DrawText(200, 220, "GRAPH "     , GREEN, BLACK, 2);
-				break;
-			default:
-				ILI9341_DrawText(200, 220, "GRAPH "     , RED  , BLACK, 2);
-				break;
-		}
-		ILI9341_DrawRectangle(15 ,160, 20,100,BLACK);
-		ILI9341_DrawRectangle(180,160, 20,100,BLACK);
-		ILI9341_DrawText(X_Coordinate,  Y_Coordinate, ">" , YELLOW, BLACK, 2);
-		osCooperative_Wait(&Sema_Value);
-		uint8_t data[4];
-		tach_4_chu_so_dau(res, data);
-		Display_Init(&device,res,data);
+		osSemaphore_Give(&Sema_TOUCH);
+	}
+}
+
+void Touch_Input(void) {
+	while (1) {
+		osCooperative_Wait(&Sema_TOUCH);
+		if (Touch_IsPressed()) {
+      Touch_ReadPixelXY(&axis_x, &axis_y);
+			if ((axis_x >= 30 && axis_x <= 130) && (axis_y >= 145 && axis_y <= 175)) {
+				device.Ranges++; 
+				if (device.Ranges > 8) {
+					device.Ranges = 1;
+				}
+			}	else if ((axis_x >= 30 && axis_x <= 130) && (axis_y > 175 && axis_y <= 210)) {
+				device.Frequency = device.Frequency + 1;
+				if (device.Frequency > 4) {
+						device.Frequency = 0;
+				}
+			}	else if ((axis_x >= 180 && axis_x <= 280) && (axis_y >= 145 && axis_y <= 175)) {
+				if (device.Uart == 0) {
+					device.Uart = 1;
+				} else {
+					device.Uart = 0;
+				}
+			}	else if ((axis_x >= 180 && axis_x <= 280) && (axis_y > 175 && axis_y <= 200)) {
+				if (device.SD == 0) {
+					device.SD = 1;
+				} else {
+					device.SD = 0;
+				}
+			}	else if ((axis_x >= 180 && axis_x <= 280) && (axis_y > 200 && axis_y <= 230)) {
+				if (device.Graph ==  0) {
+					device.Graph = 1;
+				} else {
+					device.Graph = 0;
+				}
+			}
+			device.new_input = 1;
+    }
+		osSemaphore_Give(&Sema_TFT);
 	}
 }
 
 void Check_Button(void) {
 	while (1) {
-		axis_x++;
 		if        ( GPIO_ReadInputDataBit(Button_Port, Button_Hold  ) == 0) {
 			if        ((X_Coordinate == 15) && (Y_Coordinate == 160)) {
 				device.Ranges++;
@@ -130,6 +175,7 @@ void Check_Button(void) {
 					device.Frequency = 0;
 				}
 			}
+			device.new_input = 1;
 		} else if ( GPIO_ReadInputDataBit(Button_Port, Button_Choose) == 0) {
 			if (X_Coordinate == 180) { 
 				switch (Y_Coordinate) {
@@ -156,12 +202,14 @@ void Check_Button(void) {
 						break;
 				}
 			}
+			device.new_input = 1;
 		} else if ( GPIO_ReadInputDataBit(Button_Port, Button_Top   ) == 0) {
 			if (Y_Coordinate > 160) {
 				Y_Coordinate = Y_Coordinate - 30;
 			} else {
 				Y_Coordinate = 160;
 			}
+			device.new_input = 1;
 		} else if ( GPIO_ReadInputDataBit(Button_Port, Button_Bottom) == 0) {
 			if (X_Coordinate == 15) {
 				Y_Coordinate = Y_Coordinate + 30;
@@ -174,77 +222,78 @@ void Check_Button(void) {
 					Y_Coordinate = 220;
 				}
 			}
+			device.new_input = 1;
 		} else if ( GPIO_ReadInputDataBit(Button_Port, Button_Left  ) == 0) {
 			X_Coordinate = 15;
 			Y_Coordinate = 160;
+			device.new_input = 1;
 		} else if ( GPIO_ReadInputDataBit(Button_Port, Button_Right ) == 0) {
 			X_Coordinate = 180;
 			Y_Coordinate = 160;
+			device.new_input = 1;
 		}
 		osThreadsSleep(20);
 	}
 }
 void Read_Sensor(void) {
 	while (1) {
-		float value;
+		float value, old_value = 0;
 		switch (device.Ranges) {
 			case 1:
-				res = ADC_Range1_Resistance(device.Frequency, pga_2V);
+				value = ADC_Range1_Resistance(device.Frequency, pga_2V);
 				break;
 			case 2:
-				res = ADC_Range2_Resistance(device.Frequency, pga_2V);
+				value = ADC_Range2_Resistance(device.Frequency, pga_2V);
 				break;
 			case 3:
-				res = ADC_Range3_Resistance(device.Frequency, pga_2V);
+				value = ADC_Range3_Resistance(device.Frequency, pga_2V);
 				break;
 			case 4:
-				res = ADC_Range4_Resistance(device.Frequency, pga_2V);
+				value = ADC_Range4_Resistance(device.Frequency, pga_2V);
 				break;
 			case 5:
-				res = ADC_Range5_Resistance(device.Frequency, pga_2V);
+				value = ADC_Range5_Resistance(device.Frequency, pga_2V);
 				break;
 			case 6:
-				res = ADC_Range6_Resistance(device.Frequency);
+				value = ADC_Range6_Resistance(device.Frequency);
 				break;
 			case 7:
-				res = ADC_Range7_Resistance(device.Frequency);
+				value = ADC_Range7_Resistance(device.Frequency);
 				break;
 			default:
 				value = ADC_Range7_Resistance(device.Frequency);
 				if (value > 2000000) {
-					res = value;
 					break;
 				} 
 				value = ADC_Range6_Resistance(device.Frequency);
 				if (value > 200000) {
-					res = value;
 					break;
 				} 
 				value = ADC_Range5_Resistance(device.Frequency, pga_2V);
 				if (value > 20000) {
-					res = value;
 					break;
 				}
 				value = ADC_Range4_Resistance(device.Frequency, pga_2V);
 				if (value > 2000) {
-					res = value;
 					break;
 				}
 				value = ADC_Range3_Resistance(device.Frequency, pga_2V);
 				if (value > 200) {
-					res = value;
 					break;
 				}
 				value = ADC_Range2_Resistance(device.Frequency, pga_2V);
 				if (value > 20) {
-					res = value;
 					break;
 				}
 				value = ADC_Range1_Resistance(device.Frequency, pga_2V);
-				res = value;
 				break;
 		}
-		osSemaphore_Give(&Sema_Value);
+		if (value != old_value) {
+			old_value = value;
+			res = value;
+			device.new_data = 1;
+			osSemaphore_Give(&Sema_COM);
+		}
 	}
 }
 
@@ -252,14 +301,15 @@ void Transmit_To_PC(void) {
 	while (1) {
 		if (device.Uart == 1) {
 			osCooperative_Wait(&Sema_COM);
-			if (((device.Ranges) >= 6 && (res > 910000)) || ((device.Ranges) == 5 && (res > 200000)) || ((device.Ranges) == 4 && (res > 20000)) \
+			if (((device.Ranges) >= 7 && (res > 21000000)) || ((device.Ranges) == 6 && (res > 2000000)) || ((device.Ranges) == 5 && (res > 200000)) || ((device.Ranges) == 4 && (res > 20000)) \
 					|| ((device.Ranges) == 3 && (res > 2000)) || ((device.Ranges) == 2 && (res > 200)) || ((device.Ranges) == 1 && (res > 20))) {
 				Usart_printf("0,0,0,0,0,OL,0,0\n");
-			} else if (((device.Ranges) == 6 && (res < 200000)) || ((device.Ranges) == 5 && (res < 3000)) || ((device.Ranges) == 4 && (res < 300)) \
+			} else if (((device.Ranges) == 7 && (res < 2000000)) || ((device.Ranges) == 6 && (res < 200000)) || ((device.Ranges) == 5 && (res < 3000)) || ((device.Ranges) == 4 && (res < 300)) \
 					|| ((device.Ranges) == 3 && (res < 30)) || ((device.Ranges) == 2 && (res < 3)) || ((device.Ranges) == 1 && (res < 0.4))) {
 				Usart_printf("0,0,0,0,0,0.0,0,0\n");
 			} else {
-				Usart_printf("0,0,0,0,0,%s,0,0 \n", float_to_string(res,3));
+				Usart_printf("0,0,0,0,0,%s,0,0\n", float_to_string(res,3));
+				//Usart_printf("0,0,0,0,0,%d,0,0\n",device.current_res);
 			}
 			osThreadYield();
 		} else {
@@ -278,8 +328,6 @@ void SD_Save_Data(void) {
 	}
 }
 
-//test tounch
-
 int main (void) {
 	
 	device.Ranges = 1;
@@ -287,6 +335,8 @@ int main (void) {
 	device.Uart = 0;
 	device.SD = 0;
 	device.Graph = 0;
+	device.new_input = 0;
+	device.new_data = 0;
 	
 	RCC_Clock_Init();
 	
@@ -329,24 +379,28 @@ int main (void) {
 	ILI9341_DrawText(200, 220, "GRAPH "     , RED   , BLACK, 2);
 	ILI9341_DrawText( 15, 160, ">"          , YELLOW, BLACK, 2);
 	
+	Touch_Init();
+	
 	osSemaphore_Init(&Sema_COM  , 0);
 	osSemaphore_Init(&Sema_SD   , 0);
-	osSemaphore_Init(&Sema_Value, 0);
+	osSemaphore_Init(&Sema_TFT  , 1);
+	osSemaphore_Init(&Sema_TOUCH, 0);
 	
 	osKernelInit();
 	osKernelAdd1Thread(*(Draw_Display));
+	osKernelAdd1Thread(*(Touch_Input));
 	osKernelAdd1Thread(*(Check_Button));
 	osKernelAdd1Thread(*(Read_Sensor));
 	osKernelAdd1Thread(*(Transmit_To_PC));
-	osKernelAdd1Thread(*(SD_Save_Data));
 	osKernelLaunch(quanta);
 	
-	//Touch_Init();
+	
 	
 	while (1){
-//		if (Touch_IsPressed()) {
-//      Touch_ReadPixelXY(&axis_x, &axis_y);
-//    }
+		if (Touch_IsPressed()) {
+      Touch_ReadPixelXY(&axis_x, &axis_y);
+    }
+		Timer3_Delay_ms(100);
 	}
 }
 
